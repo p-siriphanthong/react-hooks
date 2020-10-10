@@ -1,4 +1,4 @@
-// useRef and useEffect: DOM interaction
+// useRef and useEffect: DOM interaction (class refactor)
 // http://localhost:3000/isolated/exercise/05-classes.js
 
 import React from 'react'

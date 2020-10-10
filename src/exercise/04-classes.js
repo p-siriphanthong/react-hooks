@@ -1,4 +1,4 @@
-// useState: tic tac toe
+// useState: tic tac toe (class refactor)
 // http://localhost:3000/isolated/exercise/04-classes.js
 
 import React from 'react'
