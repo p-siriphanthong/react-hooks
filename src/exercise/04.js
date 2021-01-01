@@ -5,14 +5,17 @@ import React from 'react'
 
 function Board() {
   // 🐨 squares is the state for this component. Add useState for squares
-  const squares = Array(9).fill(null)
+  const [squares, setSquares] = React.useState(Array(9).fill(null))
 
   // 🐨 We'll need the following bits of derived state:
-  // - nextValue ('X' or 'O')
-  // - winner ('X', 'O', or null)
-  // - status (`Winner: ${winner}`, `Scratch: Cat's game`, or `Next player: ${nextValue}`)
   // 💰 I've written the calculations for you! So you can use my utilities
   // below to create these variables
+  // - nextValue ('X' or 'O')
+  const nextValue = calculateNextValue(squares)
+  // - winner ('X', 'O', or null)
+  const winner = calculateWinner(squares)
+  // - status (`Winner: ${winner}`, `Scratch: Cat's game`, or `Next player: ${nextValue}`)
+  const status = calculateStatus(winner, squares, nextValue)
 
   // This is the function your square click handler will call. `square` should
   // be an index. So if they click the center square, this will be `4`.
@@ -20,18 +23,23 @@ function Board() {
     // 🐨 first, if there's already winner or there's already a value at the
     // given square index (like someone clicked a square that's already been
     // clicked), then return early so we don't make any state changes
-    //
+    if (winner || squares[square]) return
+
     // 🦉 It's typically a bad idea to manipulate state in React because that
     // can lead to subtle bugs that can easily slip into productions.
     // 🐨 make a copy of the squares array (💰 `[...squares]` will do it!)
     // 🐨 Set the value of the square that was selected
     // 💰 `squaresCopy[square] = nextValue`
-    //
+    const squaresCopy = [...squares]
+    squaresCopy[square] = nextValue
+
     // 🐨 set the squares to your copy
+    setSquares(squaresCopy)
   }
 
   function restart() {
     // 🐨 set the squares to `Array(9).fill(null)`
+    setSquares(Array(9).fill(null))
   }
 
   function renderSquare(i) {
@@ -45,7 +53,7 @@ function Board() {
   return (
     <div>
       {/* 🐨 put the status here */}
-      <div className="status">STATUS</div>
+      <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
@@ -78,7 +86,6 @@ function Game() {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateStatus(winner, squares, nextValue) {
   return winner
     ? `Winner: ${winner}`
@@ -87,14 +94,12 @@ function calculateStatus(winner, squares, nextValue) {
     : `Next player: ${nextValue}`
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateNextValue(squares) {
   const xSquaresCount = squares.filter(r => r === 'X').length
   const oSquaresCount = squares.filter(r => r === 'O').length
   return oSquaresCount === xSquaresCount ? 'X' : 'O'
 }
 
-// eslint-disable-next-line no-unused-vars
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
