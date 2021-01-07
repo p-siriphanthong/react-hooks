@@ -21,8 +21,10 @@ class ErrorBoundary extends React.Component {
   }
 
   render() {
+    // 💬 destructure state: `const {error} = this.state`
     if (this.state.error) {
       return (
+        // 💬 return `FallbackComponent` that get from prop
         <div role="alert">
           There was an error:{' '}
           <pre style={{whiteSpace: 'normal'}}>{this.state.error.message}</pre>

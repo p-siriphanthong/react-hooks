@@ -23,6 +23,7 @@ function ErrorFallback({error, resetErrorBoundary}) {
 }
 
 function PokemonInfo({pokemonName}) {
+  // 💬 set initial status to 'pending' if pokemonName is exists, otherwise 'idle'
   const [state, setState] = React.useState({status: 'idle'})
 
   const isIdle = state.status === 'idle'
@@ -60,7 +61,7 @@ function App() {
       <div className="pokemon-info">
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
-          onReset={() => setPokemonName('')}
+          onReset={() => setPokemonName('')} // 💬 create `handleReset` function
         >
           <PokemonInfo pokemonName={pokemonName} />
         </ErrorBoundary>

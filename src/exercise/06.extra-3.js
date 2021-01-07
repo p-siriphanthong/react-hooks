@@ -21,6 +21,7 @@ function ErrorFallback({error}) {
 
 function PokemonInfo({pokemonName}) {
   const [state, setState] = React.useState({status: 'idle'})
+  // 💬 destructure state: `const {status, pokemon, error} = state`
 
   const isIdle = state.status === 'idle'
   const isPending = state.status === 'pending'

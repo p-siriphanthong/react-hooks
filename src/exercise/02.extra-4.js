@@ -4,17 +4,22 @@
 
 import React from 'react'
 
-function useLocalStorageState(key, defaultValue = '') {
+function useLocalStorageState(
+  key,
+  defaultValue = '',
+  // 💬 add options prop like `{serialize = JSON.stringify, deserialize = JSON.parse} = {}`,
+) {
   // 🐨 initialize the state to the value from localStorage
   // 💰 window.localStorage.getItem('name') || initialName
   const [value, setValue] = React.useState(
-    () => getLocalStorageValue() || defaultValue,
+    () => getLocalStorageValue() || defaultValue, // 💬 if defaultValue is a function should call `defaultValue()`
   )
 
   function getLocalStorageValue() {
     try {
       return JSON.parse(window.localStorage.getItem(key))
     } catch (error) {
+      // 💬 maybe remove item from local storage
       return window.localStorage.getItem(key)
     }
   }
@@ -23,6 +28,7 @@ function useLocalStorageState(key, defaultValue = '') {
   // The callback should set the `name` in localStorage.
   // 💰 window.localStorage.setItem('name', name)
   React.useEffect(() => {
+    // 💬 maybe remove item from local storage when key changed
     window.localStorage.setItem(key, JSON.stringify(value))
   }, [key, value])
 

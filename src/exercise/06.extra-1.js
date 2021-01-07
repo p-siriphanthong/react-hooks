@@ -29,6 +29,7 @@ function PokemonInfo({pokemonName}) {
     setPokemon(null)
     setError(null)
 
+    // 💬 or using second parameter of `then` to set the error
     fetchPokemon(pokemonName).then(setPokemon).catch(setError)
   }, [pokemonName])
 

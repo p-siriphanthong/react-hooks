@@ -55,8 +55,9 @@ function Game() {
     const squaresCopy = [...currentSquares]
     squaresCopy[square] = nextValue
 
+    // 💬 maybe create a variable `const newHistory = history.slice(0, currentStep + 1)`
     setHistory([...history.slice(0, currentStep + 1), squaresCopy])
-    setCurrentStep(prevCurrentStep => prevCurrentStep + 1)
+    setCurrentStep(prevCurrentStep => prevCurrentStep + 1) // 💬 maybe update currentStep to `newHistory.length`
   }
 
   function restart() {
@@ -76,12 +77,14 @@ function Game() {
         <div>{status}</div>
         <ol>
           {history.map((_, index) => (
+            // 💬 create a variable `const isCurrentStep = index === currentStep`
             <li key={index}>
               <button
                 disabled={index === currentStep}
                 onClick={() => setCurrentStep(index)}
               >
                 {index ? `Go to move #${index}` : 'Go to game start'}
+                {/* 💬 using conditional ternary operator `index === currentStep ? ' (current)' : null` */}
                 {index === currentStep && ' (current)'}
               </button>
             </li>

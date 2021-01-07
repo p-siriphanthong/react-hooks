@@ -38,6 +38,7 @@ function PokemonInfo({pokemonName}) {
         setPokemon(pokemonData)
         setStatus('resolved')
       })
+      // 💬 using `error` name
       .catch(e => {
         setError(e)
         setStatus('rejected')
